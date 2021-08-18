@@ -9,12 +9,36 @@ class Habits extends Component {
         ]
     }
 
+    handleIncrement = (propItem) => {
+        const localHabits = [...this.state.habits];
+        const index = localHabits.indexOf(propItem);
+        localHabits[index].count++; //bad!!
+        this.setState({ habits : localHabits })
+    }
+
+    handleDecrement = (propItem) => {
+        const localHabits = [...this.state.habits];
+        const index = localHabits.indexOf(propItem);
+        const count = localHabits[index].count - 1;
+        localHabits[index].count = count < 0 ? 0 : count;
+        this.setState({ habits : localHabits })
+    }
+    handleDelete = (propItem) => {
+        const localHabits = this.state.habits.filter( singleHabit => singleHabit.id !== propItem.id);
+        this.setState({ habits : localHabits})
+    }
+
     render() {
         return (
             <ul>
-                {this.state.habits.map( item =>
-                    <Habit key = {item.id} habit = {item} />
-                        //{habit : {item}} 을 props로 하여 Habit 컴포넌트 호출
+                {this.state.habits.map( singleHabit =>
+                    <Habit
+                    key = {singleHabit.id}
+                    habit = {singleHabit}
+                    onIncrement = {this.handleIncrement}
+                    onDecrement = {this.handleDecrement}
+                    onDelete = {this.handleDelete}
+                    />
                 )}
             </ul>
         );

@@ -1,23 +1,15 @@
 import React, { Component } from 'react';
 
 class Habit extends Component {
-    state = { //state 멤버변수(오브젝트임)
-        count: 0,
+    handleIncrement = () => {
+        this.props.onIncrement(this.props.habit);
     }
-    handleIncrement = (e) => {
-        this.setState({
-            count: this.state.count+1
-        })
+    handleDecrement = () => {
+        this.props.onDecrement(this.props.habit);
     }
-
-    handleDecrement = (e) => {
-        const count = this.state.count - 1;
-        this.setState({count: count < 0 ? 0 : count})
+    handleDelete = () => {
+        this.props.onDelete(this.props.habit);
     }
-    handleDelete = (e) => {
-
-    }
-    //-------------------------------------------------------------------------------
     render() {
         const { name, count } = this.props.habit;
         return (
